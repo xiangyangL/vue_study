@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<script src="../vue.js"></script>
+		
+	</head>
+	<body>
+		<div id="app">
+			<!-- 类似text-danger的带有横杠的要加引号，否则解析出错 -->
+			<p class='test1'
+				 v-bind:class="{active:isActive,'text-danger':hasError}">对象语法</p>
+			<p v-bind:class="cla">对象语法2</p>
+			<p v-bind:class="[ace,he]">可传数组，仔细看传的数组！！！！！</p>
+			<p v-bind:style="styleObject">style的对象写法</p>
+		</div>
+		<script>
+			var app = new Vue({
+				el:'#app',
+				data:{
+					isActive:true,
+					hasError:true,
+					ace:'active',
+					he:'text-danger',
+					cla:{
+						active:true,
+						'text-danger':false
+					},
+					styleObject:{
+						color:'red',
+						fontSize:'22px'
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

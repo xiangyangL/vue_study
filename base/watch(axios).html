@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+		<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id='app'>
+			<p>输入问题：<input v-model="question"> </p>
+			<p>{{answer}}</p>
+		</div>
+		<script>
+			var app = new Vue({
+				el:'#app',
+				data:{
+					question:'',
+					answer:'有问题才能回答啊！！！！'
+				},
+				watch:{
+					question:function(){
+						this.answer = '等你输完呢！';
+						this.getAnswer();
+					}
+				},
+				methods:{
+					getAnswer:_.debounce(
+						function(){
+							var vm = this;
+							if(this.question.indexOf('?') === -1) {
+								this.answer = '问题至少带个问号呀.....';
+								return;
+							}
+							axios.get('https://yesno.wtf/api')
+							.then(function(response){
+								vm.answer = _.capitalize(response.data.answer);
+							})
+							.catch(function(err){
+								vm.answer = 'ERROR!!! could not reach the api' + err;
+							})
+						},
+						100) 
+				}
+			});
+		</script>
+	</body>
+</html>

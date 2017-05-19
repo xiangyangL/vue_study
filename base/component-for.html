@@ -1,0 +1,22 @@
+<script src="../vue.js"></script>
+<div id='app'>
+	<ol>
+		<todo-item v-for="item in lists" v-bind:todo="item">
+	</ol>
+</div>
+<script>
+	Vue.component('todo-item',{
+		props:['todo'],
+		template:'<li>{{todo.text}}</li>'
+	});
+	var app = new Vue({
+		el:'#app',
+		data:{
+			lists:[
+				{text:'js'},
+				{text:'vue'},
+				{text:'项目'}
+			]
+		}
+	});
+</script>

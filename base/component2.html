@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div class="app">
+			<ol>
+				<todo-item v-for='item in group' v-bind:todo='item'></todo-item>
+			</ol>
+		</div>
+
+		<script>
+			Vue.component('todo-item',{
+				props:['todo'],
+				template:'<li>{{todo.text}}</li>'
+			});
+			new Vue({
+				el:'.app',
+				data:{
+					group:[
+						{text:'vue'},
+						{text:'学习'},
+						{text:'项目'},
+					]
+				}
+			});
+		</script>
+
+	</body>
+</html>
