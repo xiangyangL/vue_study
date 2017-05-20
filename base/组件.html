@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+			<my-component></my-component>
+			<my-component></my-component>
+		</div>
+		<script>
+			Vue.component("my-component",{
+				template:'<button v-on:click="counter += 1">{{counter}}</button>',
+				//data必须是一个函数，为每个组件生成
+				data:()=>{
+					return {counter:0}
+				}
+			});
+			var app = new Vue({
+				el:'#app'
+			});
+		</script>
+	</body>
+</html>
