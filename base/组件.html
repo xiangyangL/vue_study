@@ -8,10 +8,22 @@
 		<script src="../vue.js"></script>
 	</head>
 	<body>
-		<div id="app">
+		<div id="app1">
 			<my-component></my-component>
 			<my-component></my-component>
 			<my-component></my-component>
+		</div>
+		<div id="app2">
+			<child my-message="lxy"></child>
+		</div>
+		<div id="app3">
+			<input v-model="messe">
+			<child :my-message="messe"></child>
+		</div>
+		<div id="app4">
+			<!-- 用v-bind代替v-on可以保证传入的类型 -->
+			<input :value="hah">
+			<sed-child :msg="hah"></sed-child>
 		</div>
 		<script>
 			Vue.component("my-component",{
@@ -22,7 +34,46 @@
 				}
 			});
 			var app = new Vue({
-				el:'#app'
+				el:'#app1'
+			});
+			//prop  子组件不能(也不应该)直接引用父组件的数据，要让子组件引父组件数据，通过子组件的props选项
+				//子组件要显示的声明props属性(保存在数组中)，props属性即 组件标签的属性
+			Vue.component('child',{
+				props:['myMessage'],
+				template:'<p>{{myMessage}}</p>',
+			});
+			var app2 = new Vue({
+				el:'#app2',
+			});
+
+			//prop动态绑定(父组件绑定子组件)
+			Vue.component('child',{
+				props:['myMessage'],
+				template:'<p>{{myMessage}}</p>',
+			});
+			var app2 = new Vue({
+				el:'#app3',
+				data:{
+					messe:''
+				}
+			});
+
+			//单向数据流。prop是单向绑定的，当父组件的属性变化时会传给子组件，反过来则不会。这样防止子组件无意间修改父组件
+			//						父组件更新时，子组件的所有prop都会更新为最新值，这意味着不应该在子组件内部改变prop
+
+
+			//prop验证  为组件的props指定验证规格，如果传入的数据不符合规则，Vue会发出警告
+			Vue.component('sed-child',{
+				props:{
+					msg:Number
+				},
+				template:'<p>{{msg}}</p>',
+			});
+			var app4 = new Vue({
+				el:'#app4',
+				data:{
+					hah:2
+				}
 			});
 		</script>
 	</body>
