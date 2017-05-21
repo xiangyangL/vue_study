@@ -13,6 +13,13 @@
 			<child @woca="parentSum"></child>
 			<child @woca="parentSum"></child>
 		</div>
+		<div id="app2">
+			<app-layout>
+				<h1 slot="header">header</h1>
+				<h1>main</h1>
+				<h1 slot="footer">footer</h1>
+			</app-layout>
+		</div>
 		<script>
 			//自定义事件 父组件通过props传递数据给子组件，子组件通过 自定义事件 把数据传回去
 			//$emit 发出  $on 监听
@@ -39,6 +46,19 @@
 						this.sum += 1;
 					}
 				}
+			});	
+
+			//具名slot
+			Vue.component('appLayout',{
+				template:`
+					<div class="container">
+						<slot name="header"></slot>
+						<slot name="footer"></slot>
+					</div>
+				`,
+			});
+			var app2 = new Vue({
+				el:'#app2'
 			});
 		</script>
 	</body>
