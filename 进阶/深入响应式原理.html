@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<child></child>
+		</div>
+		<script>
+			Vue.component('child',{
+				template:'<p @click="ude">{{message}}</p>',
+				data:function(){
+					return {message:'not update'}
+				},
+				methods:{
+					ude:function(){
+						this.message = 'updated'
+						console.log(this.$el.textContent)
+						this.$nextTick(function(){
+							console.log(this.$el.textContent)
+						});
+					}
+				}
+			});
+			var app = new Vue({
+				el:'#app'
+			});
+		</script>
+	</body>
+</html>

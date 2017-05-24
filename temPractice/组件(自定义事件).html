@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		<script src="../vue/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{sum}}</p>
+			<child-btn @calei="sumChild"></child-btn>
+			<child-btn @calei="sumChild"></child-btn>
+		</div>
+		<script>
+			Vue.component('childBtn',{
+				template:'<button @click="num">{{counter}}</button>',
+				data:function(){
+					return {counter:0};
+				},
+				methods:{
+					num:function(){
+						this.counter += 1;
+						this.$emit('calei');
+					}
+				}
+			});
+			var app = new Vue({
+				el:'#app',
+				data:{
+					sum:0
+				},
+				methods:{
+					sumChild:function(){
+						this.sum += 1;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

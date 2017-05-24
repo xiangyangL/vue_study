@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="test">
+		
+		</div>
+		<script>
+			
+			(()=>console.log('asdfsadf'))();
+			
+			function proCreate(url){
+				return new Promise((resolve,reject)=>{
+					var img = new Image();
+					img.onload = resolve(img);
+					img.onerror = reject(new Error());
+					img.src = url;
+				});
+			}
+			var img = proCreate('https://ss0.bdstatic.com/k4oZeXSm1A5BphGlnYG/skin/831.jpg?2');
+			img
+				.then((ele)=>{		
+					document.getElementById('test').appendChild(ele);
+				})
+				.catch((err)=>{
+					console.log(err);
+				});
+		</script>
+	</body>
+</html>
